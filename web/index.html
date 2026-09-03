@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>法析 | 中国法律风险分析</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <aside class="sidebar" aria-label="应用导航">
+        <div class="brand-lockup">
+          <div class="brand-mark" aria-hidden="true">法</div>
+          <div>
+            <p class="eyebrow">本地法律助手</p>
+            <h1>法析</h1>
+          </div>
+        </div>
+        <button class="new-chat-button" id="new-chat" type="button">
+          <span aria-hidden="true">+</span><span>新建对话</span>
+        </button>
+        <section class="library-status" aria-label="当前知识库">
+          <p class="section-label">当前知识库</p>
+          <strong>劳动法 · 民法典</strong>
+          <span id="article-count">正在载入</span>
+        </section>
+        <section class="history-panel" aria-label="历史对话">
+          <div class="panel-heading">
+            <p class="section-label">历史对话</p>
+            <span id="conversation-count">0</span>
+          </div>
+          <div class="conversation-list" id="conversation-list"></div>
+        </section>
+        <div class="sidebar-footer">
+          <button class="settings-button" id="open-settings" type="button" title="API 设置">
+            <span class="gear" aria-hidden="true">&#9881;</span><span>API 设置</span>
+          </button>
+          <p>仅在本机处理检索</p>
+        </div>
+      </aside>
+
+      <section class="workspace">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">中国大陆 · 初步风险分析</p>
+            <h2 id="conversation-title">法律问题分析</h2>
+          </div>
+          <div class="connection-state" id="connection-state"><span></span>等待配置 API</div>
+        </header>
+
+        <section class="conversation" id="conversation" aria-live="polite">
+          <article class="welcome-message" id="welcome-message">
+            <div class="welcome-symbol" aria-hidden="true">§</div>
+            <p class="eyebrow">依据本地法条库</p>
+            <h3>把事情说清楚，我来拆开法律风险。</h3>
+            <p>说明时间、双方身份、做了什么、已经发生什么，以及你最担心的结果。</p>
+            <div class="suggestions" aria-label="示例问题">
+              <button type="button" data-prompt="公司连续两个月没有按时发工资，我可以怎么处理？">拖欠工资</button>
+              <button type="button" data-prompt="签了合同后，对方不履行约定，我可以主张什么权利？">合同不履行</button>
+              <button type="button" data-prompt="未经本人同意使用我的照片做商业宣传，可能承担什么责任？">肖像被商用</button>
+            </div>
+          </article>
+        </section>
+
+        <form class="composer" id="composer">
+          <label class="sr-only" for="message-input">描述需要分析的情况</label>
+          <textarea id="message-input" rows="1" maxlength="6000" placeholder="描述需要分析的情况…"></textarea>
+          <div class="composer-footer">
+            <span>Enter 发送 · Shift + Enter 换行</span>
+            <button class="send-button" type="submit" title="发送分析请求" aria-label="发送分析请求">↑</button>
+          </div>
+        </form>
+      </section>
+
+      <aside class="sources-panel" id="sources-panel" aria-label="本次法条依据">
+        <div class="sources-heading">
+          <div>
+            <p class="eyebrow">RAG 检索结果</p>
+            <h2>本次法条依据</h2>
+          </div>
+          <span id="source-count">0 条</span>
+        </div>
+        <div class="source-list" id="source-list">
+          <p class="empty-sources">发起分析后，相关法条会显示在这里。</p>
+        </div>
+      </aside>
+    </main>
+
+    <dialog id="settings-dialog">
+      <form method="dialog" id="settings-form">
+        <div class="dialog-heading">
+          <div>
+            <p class="eyebrow">模型连接</p>
+            <h2>API 设置</h2>
+          </div>
+          <button class="icon-button" value="cancel" type="submit" title="关闭" aria-label="关闭">×</button>
+        </div>
+        <label>API 地址<input id="base-url" name="baseUrl" type="url" placeholder="https://api.openai.com/v1" required /></label>
+        <label>模型名称<input id="model" name="model" type="text" placeholder="例如：gpt-4.1-mini" required /></label>
+        <label>API Key<input id="api-key" name="apiKey" type="password" autocomplete="off" placeholder="不会保存到本地文件" required /></label>
+        <label>额外请求头<textarea id="extra-headers" name="extraHeaders" rows="4" placeholder='{"X-API-Key":"xxx","Referer":"https://your-site.com","Origin":"https://your-site.com"}'></textarea></label>
+        <p class="dialog-note">支持 OpenAI Chat Completions 兼容接口。若中转站要求额外头部，可填在这里。配置会保存在本机浏览器里，刷新后仍可继续使用。</p>
+        <div class="dialog-actions">
+          <button class="secondary-button" value="cancel" type="submit">取消</button>
+          <button class="primary-button" id="save-settings" value="default" type="submit">保存设置</button>
+        </div>
+      </form>
+    </dialog>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
