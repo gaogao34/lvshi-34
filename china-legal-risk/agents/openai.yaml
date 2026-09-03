@@ -1,0 +1,8 @@
+interface:
+  display_name: "中国法律风险分析"
+  short_description: "梳理中国大陆法律风险、依据与可能后果"
+  default_prompt: "使用 $china-legal-risk 分析以下情况的中国大陆法律风险。"
+
+policy:
+  allow_implicit_invocation: true
+
